@@ -6,16 +6,15 @@ import { IItem } from "../interfaces";
 const items: IItem[] = [
 	{
 		title: "first item",
-		image: "http://via.placeholder.com/350x150",
+		image: "https://via.placeholder.com/350x150",
 	},
 	{
-		// comment out the title property to generate an error while rendering a Card component.
 		title: "second item",
-		image: "http://via.placeholder.com/350x150",
+		image: "https://via.placeholder.com/350x150",
 	},
 	{
 		title: "third item",
-		image: "http://via.placeholder.com/350x150",
+		image: "https://via.placeholder.com/350x150",
 	},
 ];
 

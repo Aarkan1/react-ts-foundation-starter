@@ -80,8 +80,8 @@ It returns the following markup:
 ```html
 <Container>
 	<div>
-		<Checkbox id={id} type="checkbox" />
-		<Label htmlFor={id}>Todo title goes here...</Label>
+		<Checkbox id={"" + id} type="checkbox" />
+		<Label htmlFor={"" + id}>Todo title goes here...</Label>
 	</div>
 	<Button>Button text goes here...</Button>
 </Container>

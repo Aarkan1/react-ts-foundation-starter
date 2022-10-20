@@ -163,7 +163,7 @@ E.g., if a _CardList_ is passed a list of items which is `null` or `undefined`, 
 In `App.tsx`, add the following function:
 
 ```typescript
-const getItems = (): number | null => {
+const getItems = (): IItem[] | null => {
 	return Math.random() > 0.5 ? items : null;
 }
 ```

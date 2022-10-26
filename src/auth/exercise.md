@@ -56,17 +56,17 @@ As such, authentication state is best placed in a context that the application i
   // Render AppContext.Provider with these two state variables and methods as the context value. Don't forget to type everything up.
   ```
 
-- Return the context from the `useAppContext` helper hook which you will have to figure out yourself how to create. The hook can be places inside the `AppProvider`.
+- Return the context from the `useAppContext` helper hook, which you can figure out if you look at the `dependencyContext` example. The hook can be places inside the `AppProvider`.
 
 2. Render the AppProvider component as the top-level component in _index.tsx_.
 
 To verify that the application context is working, do the following:
 
-- Wrap the Users component with the `RouteGuard` component in the element-prop of the Route that handles the path "users".
+3. Wrap the Users component with the `RouteGuard` component in the `element`-prop of the Route that handles the path "users".
 
-- Navigate to the /users route; it should redirect to the Login view.
+4. Do the `TODOS` in the `RouteGuard` component.
 
-If you inspect the RouteGuard component, you'll see that it accesses the authentication state to determine whether or not to render a guarded route. As the user has not logged in (and as we haven't implemented login functionality yet), it redirects to the Login view.
+5. Navigate to the `/users` route; it should redirect to the Login view.
 
 ## Part 2 - Redux
 
@@ -118,20 +118,6 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 5. To try out that your redux store works, do the TODOS in the `RouteGuard` component. Wrap the Users component with the `RouteGuard` component in the element-prop of the Route that handles the path "users". Navigate to the /users route; it should redirect to the Login view.
 
-## Optional
-
-### (For this exercise in general, not specific to context or redux)
-
-Now the _Users_ component renders a _User_ whenever we click on a name in the users-list. A different approach can be made here. _User_ is already its own component, the thing we could do is to give it its own route aswell, much like _Login_ and _Users_ already have. The challenge here is to render the same _User_ component but with different props depending on the name we click on. We need a couple of things in order to achieve this.
-
-- First we need to lift up the state of the _Users_ component (_i.e. the users-list_) to the context in order for _User_ component to access it. Make sure that the context also shares that state with the rest of the application.
-
-- Secondly, create a new route for the _User_ component. Check out the [docs](https://reactrouter.com/docs/en/v6/getting-started/overview#reading-url-parameters) for route parameters (_URL-parameters_), and how to access those parameters from within the components.
-
-- Thirdly, when everything is set up it's time for the _User_ component to make sure that it displays the correct data depending on which name we clicked on in the _Users_ component. `Hint`: it involves using the **array.find()** method and the **useParams()** hook.
-
-- Finally, add a back button so it's easy to get back to the _Users_ list.
-
 ## Part 3 - Authentication
 
 The `pages/Login` component renders a view for authenticating a user, using the global state available via the application context.
@@ -144,17 +130,45 @@ Implement the comments marked with _TODO_.
 
 To allow the user to logout, implement the comments marked with _TODO_ in the `components/Navigation` component.
 
-## Optional
+## Optional 1
 
-The logic for fetching users is now written in the `users` component with all the state and everything. Try to extract this logic to an `UsersSlice` and also add fetching statuses that the application can react to. Maybe show some feedback the fetch is loading or went wrong or something.
+### (This exercise is not specific to context or redux)
+
+Now the _Users_ component renders a _User_ whenever we click on a name in the users-list. A different approach can be made here. _User_ is already its own component, the thing we could do is to give it its own route aswell, much like _Login_ and _Users_ already have. 
+
+The challenge here is to render the same _User_ component but with different props depending on the name we click on. We need a couple of things in order to achieve this:
+
+1. First we need to lift up the state of the _Users_ component (_i.e. the users-list_) to the context in order for _User_ component to access it. Make sure that the context also shares that state with the rest of the application.
+
+2. Secondly, create a new route for the _User_ component. Check out the [documentation on reading url params](https://reactrouter.com/docs/en/v6/getting-started/overview#reading-url-parameters) for route parameters (_URL-parameters_), and how to access those parameters from within the components.
+
+3. Thirdly, when everything is set up it's time for the _User_ component to make sure that it displays the correct data depending on which name we clicked on in the _Users_ component. 
+
+   > `Hint`: it involves using the **array.find()** method and the **useParams()** hook.
+
+4. Finally, add a back button so it's easy to get back to the _Users_ list.
+
+## Optional 2
+
+### Context
+
+The logic for fetching users is now written in the `Users` component with all the state and fetch functions. 
+
+- Create a `UserProvider` context and extract this logic to that provider. Don't forget to wrap your `App` components with this provider.
+
+- Add fetching statuses that the application can react to. Maybe show some feedback the fetch is loading or went wrong.
+
+### Redux
+
+The logic for fetching users is now written in the `Users` component with all the state and fetch functions. Try to extract this logic to an `UsersSlice` and also add fetching statuses that the application can react to. Maybe show some feedback the fetch is loading or went wrong.
 
 Reducers as we have used them now, can only handle synchronous logic, but fetching is something asynchronous. For that we need something called `createAsyncThunk` which is a function that is included in redux toolkit. Here is the link to the [documentation](https://redux-toolkit.js.org/api/createAsyncThunk). This optional is a challenge but it's worth it. You can also check the solution [repository](https://github.com/Aarkan1/react-ts-foundation-final) for an example of this.
 
-## Optional Parts - No solution exists
+## Optional 3 - No solution exists
 
 ### Loading Data with 3rd Party Library
 
-If you try to navigate to the /users route and then _quickly_ navigate back to home, you'll notice the following error in the console:
+If you try to navigate to the `/users` route and then _quickly_ navigate back to home, you'll notice the following error in the console:
 
 `Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.`
 

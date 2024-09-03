@@ -5,12 +5,12 @@ import ComponentB from "./ComponentB";
 import { store } from "./store";
 
 const App = (): JSX.Element => {
-	return (
-		<Provider store={store}>
-			<ComponentA />
-			<ComponentB />
-		</Provider>
-	);
+  return (
+    <Provider store={store}>
+      <ComponentA />
+      <ComponentB />
+    </Provider>
+  );
 };
 
 export default App;

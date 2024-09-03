@@ -2,7 +2,7 @@
 // Each interface is exported, which lets us import them when needed.
 
 // This interface is used in the feed exercise
-export interface IItem {
-	title: string;
-	image: string;
+export interface Item {
+  title: string;
+  image: string;
 }

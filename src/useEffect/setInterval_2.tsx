@@ -5,37 +5,37 @@ import { useState, useEffect } from "react";
  * a callback.
  */
 const Counter = (): JSX.Element => {
-	const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
-	useEffect(() => {
-		const handle = setInterval(() => {
-			/*
-			 * use the callback version of setCount; the callback returns a new
-			 * count based on the previous count that is passed to it.
-			 */
+  useEffect(() => {
+    const handle = setInterval(() => {
+      /*
+       * use the callback version of setCount; the callback returns a new
+       * count based on the previous count that is passed to it.
+       */
 
-			setCount((prevCount) => prevCount + 1);
-		}, 1000);
+      setCount((prevCount) => prevCount + 1);
+    }, 1000);
 
-		return () => clearInterval(handle);
-	}, []);
+    return () => clearInterval(handle);
+  }, []);
 
-	/*
-	 * Empty dependency array because the effect does not depend on the count
-	 * variable any more. The timer is therefore only created once.
-	 */
+  /*
+   * Empty dependency array because the effect does not depend on the count
+   * variable any more. The timer is therefore only created once.
+   */
 
-	return <>Count: {count}</>;
+  return <>Count: {count}</>;
 };
 
 export const App = (): JSX.Element => {
-	const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(true);
 
-	return (
-		<>
-			<button onClick={() => setShow(true)}>Show Counter</button>
-			<button onClick={() => setShow(false)}>Hide Counter</button>
-			{show && <Counter />}
-		</>
-	);
+  return (
+    <>
+      <button onClick={() => setShow(true)}>Show Counter</button>
+      <button onClick={() => setShow(false)}>Hide Counter</button>
+      {show && <Counter />}
+    </>
+  );
 };

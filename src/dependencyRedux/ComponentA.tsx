@@ -3,17 +3,15 @@ import { logService, toggleShouldLog } from "./dependenciesSlice";
 import { useAppDispatch } from "./store";
 
 const ComponentA = (): JSX.Element => {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(logService("Rendering Component A"));
-    });
+  useEffect(() => {
+    dispatch(logService("Rendering Component A"));
+  });
 
-    return (
-        <button onClick={() => dispatch(toggleShouldLog())}>
-            Switch Logging
-        </button>
-    );
+  return (
+    <button onClick={() => dispatch(toggleShouldLog())}>Switch Logging</button>
+  );
 };
 
 export default ComponentA;

@@ -11,11 +11,11 @@ Implement the components listed below.
   Should render a _CardList_ component, passing a list of items as a prop.
 
   ```ts
-  interface IProps {
-      items: IItem[];
+  interface Props {
+    items: Item[];
   }
 
-  const CardList = ({ items }: IProps): JSX.Element => {}
+  const CardList = ({ items }: Props): JSX.Element => {};
   ```
 
 - `CardList.tsx`
@@ -32,15 +32,15 @@ Implement the components listed below.
 
   ```html
   <div className="card card-medium">
-  	<p className="card-title">{title.toUpperCase()}</p>
-  	<div><img className="card-image" src={image} alt="" /></div>
+    <p className="card-title">{title.toUpperCase()}</p>
+    <div><img className="card-image" src="{image}" alt="" /></div>
   </div>
   ```
 
   This component renders the _title_ prop with uppercase letters. Don't forget to create the interface for the props.
 
   ```ts
-  const Card = ({ title, image }: IItem): JSX.Element => {}
+  const Card = ({ title, image }: Item): JSX.Element => {};
   ```
 
   > Note that CSS classes are added to an element using the attribute _className_ instead of _class_.
@@ -52,11 +52,11 @@ Implement the components listed below.
   Make the _Card_ component more flexible by passing an additional _size_ prop (should be optional) with one of the following (string) values: **small**, **medium** and **large**.
 
   ```ts
-  interface IProps extends IItem {
-      size?: "small" | "medium" | "large";
+  interface Props extends Item {
+    size?: "small" | "medium" | "large";
   }
 
-  const Card = ({ title, image, size }: IProps): JSX.Element => {}
+  const Card = ({ title, image, size }: Props): JSX.Element => {};
   ```
 
   The component should **not** contain logic for determining the actual width values, these are set in the CSS file. The component should combine the _size_ prop with the CSS classes contained in `style.css` in a generic fashion.
@@ -70,25 +70,25 @@ Create an _ErrorBoundary_ component with the following implementation, in a file
 ```javascript
 import React, { Component, ReactNode } from "react";
 
-interface IProps {
-	children: ReactNode;
+interface Props {
+  children: ReactNode;
 }
 
-interface IState {
-	hasError: boolean;
+interface State {
+  hasError: boolean;
 }
 
-class ErrorBoundary extends Component<IProps, IState> {
-	state: IState = { hasError: false };
+class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false };
 
-	static getDerivedStateFromError(_: Error): IState {
-		return { hasError: true };
-	}
+  static getDerivedStateFromError(_: Error): State {
+    return { hasError: true };
+  }
 
-	render() {
-		// TODO: Check if error has been caught, and render a fallback UI.
-		return this.props.children;
-	}
+  render() {
+    // TODO: Check if error has been caught, and render a fallback UI.
+    return this.props.children;
+  }
 }
 
 export default ErrorBoundary;
@@ -112,8 +112,8 @@ Change _CardList_ to wrap each _Card_ in an error boundary instead. In the _Erro
 
 ```javascript
 <Card
-	title="Oops, an error occurred"
-	image="https://cdn.dribbble.com/users/1078347/screenshots/2799566/oops.png"
+  title="Oops, an error occurred"
+  image="https://cdn.dribbble.com/users/1078347/screenshots/2799566/oops.png"
 />
 ```
 
@@ -127,11 +127,9 @@ In order to build a reusable _ErrorBoundary_ component, the logic for rendering 
 
 ```javascript
 <ErrorBoundary
-  fallback={() => (
-    <p>An error occurred while trying to render SomeComponent</p>
-  )}
+  fallback={() => <p>An error occurred while trying to render SomeComponent</p>}
 >
-	<SomeComponent />
+  <SomeComponent />
 </ErrorBoundary>
 ```
 
@@ -140,6 +138,7 @@ Notice that we're passing a _function_ as the value for the `fallback` prop; thi
 Change _ErrorBoundary_ to support the Render Props pattern, and change _CardList_ from step 2 accordingly.
 
 ### Optional
+
 Currently, if a component throws an error while rendering, _ErrorBoundary_ does not allow for retrying rendering the component.
 
 E.g., if a _CardList_ is passed a list of items which is `null` or `undefined`, it will throw an error. Handle this error as follows:
@@ -152,9 +151,9 @@ E.g., if a _CardList_ is passed a list of items which is `null` or `undefined`, 
    >
    > ```javascript
    > retry = (): void => {
-   > 	this.setState({
-   > 		// ...
-   > 	});
+   >   this.setState({
+   >     // ...
+   >   });
    > };
    > ```
 
@@ -163,9 +162,9 @@ E.g., if a _CardList_ is passed a list of items which is `null` or `undefined`, 
 In `App.tsx`, add the following function:
 
 ```typescript
-const getItems = (): IItem[] | null => {
-	return Math.random() > 0.5 ? items : null;
-}
+const getItems = (): Item[] | null => {
+  return Math.random() > 0.5 ? items : null;
+};
 ```
 
 and render _CardList_ as follows:

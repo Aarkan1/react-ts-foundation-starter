@@ -41,16 +41,16 @@ As such, authentication state is best placed in a context that the application i
   const [loginError, setLoginError] = useState<boolean>(false);
 
   const login = async (credential: string): Promise<void> => {
-  	if (credential === "admin") {
-  		setUser(credential);
-  		setLoginError(false);
-  	} else {
-  		setLoginError(true);
-  	}
+    if (credential === "admin") {
+      setUser(credential);
+      setLoginError(false);
+    } else {
+      setLoginError(true);
+    }
   };
 
   const logout = (): void => {
-  	setUser(null);
+    setUser(null);
   };
 
   // Render AppContext.Provider with these two state variables and methods as the context value. Don't forget to type everything up.
@@ -92,9 +92,9 @@ As such, authentication state is best placed in a redux state manager that can b
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
-	reducer: {
-		// TODO: Implement the slice/slices you need.
-	},
+  reducer: {
+    // TODO: Implement the slice/slices you need.
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
@@ -134,7 +134,7 @@ To allow the user to logout, implement the comments marked with _TODO_ in the `c
 
 ### (This exercise is not specific to context or redux)
 
-Now the _Users_ component renders a _User_ whenever we click on a name in the users-list. A different approach can be made here. _User_ is already its own component, the thing we could do is to give it its own route aswell, much like _Login_ and _Users_ already have. 
+Now the _Users_ component renders a _User_ whenever we click on a name in the users-list. A different approach can be made here. _User_ is already its own component, the thing we could do is to give it its own route aswell, much like _Login_ and _Users_ already have.
 
 The challenge here is to render the same _User_ component but with different props depending on the name we click on. We need a couple of things in order to achieve this:
 
@@ -142,7 +142,7 @@ The challenge here is to render the same _User_ component but with different pro
 
 2. Secondly, create a new route for the _User_ component. Check out the [documentation on reading url params](https://reactrouter.com/docs/en/v6/getting-started/overview#reading-url-parameters) for route parameters (_URL-parameters_), and how to access those parameters from within the components.
 
-3. Thirdly, when everything is set up it's time for the _User_ component to make sure that it displays the correct data depending on which name we clicked on in the _Users_ component. 
+3. Thirdly, when everything is set up it's time for the _User_ component to make sure that it displays the correct data depending on which name we clicked on in the _Users_ component.
 
    > `Hint`: it involves using the **array.find()** method and the **useParams()** hook.
 
@@ -152,7 +152,7 @@ The challenge here is to render the same _User_ component but with different pro
 
 ### Context
 
-The logic for fetching users is now written in the `Users` component with all the state and fetch functions. 
+The logic for fetching users is now written in the `Users` component with all the state and fetch functions.
 
 - Create a `UserProvider` context and extract this logic to that provider. Don't forget to wrap your `App` components with this provider.
 

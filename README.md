@@ -1,4 +1,4 @@
-This document describes the examples that were coded during the Edument React Typescript Foundation course.
+This document describes the examples that were coded during the Edument React TypeScript Foundation course.
 
 # Requirements
 
@@ -144,5 +144,3 @@ The general structure of this example is as follows:
 # Contact
 
 Johan Wirén | johan@edument.se
-
-Niklas Fähnrich | niklas@edument.se

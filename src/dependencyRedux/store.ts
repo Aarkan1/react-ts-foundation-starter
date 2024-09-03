@@ -4,9 +4,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import dependencySlice from "./dependenciesSlice";
 
 export const store = configureStore({
-	reducer: {
-		dependencies: dependencySlice,
-	},
+  reducer: {
+    dependencies: dependencySlice,
+  },
 });
 
 // Creation of the correct types.

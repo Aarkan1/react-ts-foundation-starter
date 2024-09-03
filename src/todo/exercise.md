@@ -28,7 +28,7 @@ The component's markup:
 
 ```html
 <form>
-	<input placeholder="What do you need to do?" />
+  <input placeholder="What do you need to do?" />
 </form>
 ```
 
@@ -40,22 +40,23 @@ Apply the styling to the _input_ element.
 
 A _TodoList_ component that has the sole responsibility to render all the todos. It accepts a prop called "todos" from the the _App_ component.
 
-Create the `ITodo` interface in the global *interfaces.ts* file. 
+Create the `Todo` interface in the global _interfaces.ts_ file.
+
 > Look at the todo object structure in `todos.json` to determine how the interface should look like.
 
 ```ts
-interface IProps {
-    todos: ITodo[];
+interface Props {
+  todos: Todo[];
 }
 
-const TodoList = ({ todos }: IProps): JSX.Element => {}
+const TodoList = ({ todos }: Props): JSX.Element => {};
 ```
 
 It should return this simple markup:
 
 ```html
 <div>
-	<!-- Logic for listing all the todos -->
+  <!-- Logic for listing all the todos -->
 </div>
 ```
 
@@ -65,7 +66,7 @@ It should return this simple markup:
 
 The _Todo_ component renders exactly one todo object.
 
-_Todo_ accepts the `ITodo` interface as its props.
+_Todo_ accepts the `Todo` interface as its props.
 
 > You already solved this in exercise: feed/part 1
 
@@ -129,14 +130,14 @@ Create the following styled components, and put them in a separate file called _
   With TypeScript, if using styled components with props it needs to have the props typed:
 
   ```ts
-  interface IParagraphProps {
+  interface ParagraphProps {
     primary: boolean;
   }
 
-  const Paragraph = styled.p<IParagraphProps>`
+  const Paragraph = styled.p<ParagraphProps>`
     /* Adapt the colors based on primary prop */
-    background: ${props => props.primary ? "red" : "white"};
-  `
+    background: ${(props) => (props.primary ? "red" : "white")};
+  `;
   ```
 
   > See [Adapting based on props](https://styled-components.com/docs/basics#adapting-based-on-props) in the styled-components documentation.
@@ -148,7 +149,7 @@ Create the following styled components, and put them in a separate file called _
   color: #cc9a9a;
 
   &:hover {
-  	color: #af5b5e;
+    color: #af5b5e;
   }
   ```
 
@@ -186,20 +187,20 @@ const [value, setValue] = useState<number>(0);
 
   > Note: You'll now render the list of todos managed by _useState_ instead of the previous _initialTodos_!
 
-- Update `userId` in `ITodo` interface to be optional.
+- Update `userId` in `Todo` interface to be optional.
 
 - Create a callback function _createTodo_ in the _App_ component:
 
   ```typescript
   const createTodo = (title: string) => {
-  	// update the state (= list of todos) by adding a new todo object - with the passed title - first in the list:
-  	const newTodo: ITodo = {
-  		id: Date.now(),
-  		completed: false,
-  		title,
-  	};
+    // update the state (= list of todos) by adding a new todo object - with the passed title - first in the list:
+    const newTodo: Todo = {
+      id: Date.now(),
+      completed: false,
+      title,
+    };
 
-  	// Important! You must update the state (= list of todos) as a completely NEW list of todos, containing the new todo object as the first element followed by all the elements of the current todos list.
+    // Important! You must update the state (= list of todos) as a completely NEW list of todos, containing the new todo object as the first element followed by all the elements of the current todos list.
   };
   ```
 
@@ -253,7 +254,7 @@ Instead of embedding static (mock) todos as part of the application bundle, the 
 - To differentiate between whether todos have been fetched or not, change the _useState_ hook call for the todos to:
 
   ```typescript
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   ```
 
   **Question**: Is this better than having `null` as the initial value? Why?
@@ -268,10 +269,10 @@ Instead of embedding static (mock) todos as part of the application bundle, the 
 
 ```typescript
 const fetchTodos = async () => {
-	const response = await fetch("https://jsonplaceholder.typicode.com/todos");
-	const todos: ITodo[] = await response.json();
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const todos: Todo[] = await response.json();
 
-	setTodos(todos.map(({ userId, ...todo }) => todo));
+  setTodos(todos.map(({ userId, ...todo }) => todo));
   // Notice that todos.map extracts a todo without the userId
 };
 
@@ -312,9 +313,9 @@ A better way to differentiate whether or not data has been fetched, as well as t
 
   ```javascript
   try {
-  	const response = await fetch("https://jsonplaceholder.typicode.com/todos");
-  	const todos: ITodo[] = await response.json();
-  	setTodos(todos);
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const todos: Todo[] = await response.json();
+    setTodos(todos);
   } catch (error) {}
   ```
 

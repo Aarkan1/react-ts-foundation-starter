@@ -1,13 +1,7 @@
 import { useState, useEffect, MouseEvent } from "react";
 
 import UserComp from "../components/User";
-
-// This interface can be extracted to an interface.ts file and imported here instead, since this one is used in multiple places.
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
+import { User } from "../../types";
 
 const Users = (): JSX.Element => {
   const [users, setUsers] = useState<User[] | null>(null);

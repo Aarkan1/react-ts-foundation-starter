@@ -70,8 +70,6 @@ To verify that the application context is working, do the following:
 
 ## Part 2 - Redux
 
-(For context instructions, look farther down)
-
 As part of the application requirements, the /users route must be protected, i.e. an user must be logged in to see the list of users.
 
 The state of a logged in user must be shared among several components in the component tree, including:
@@ -134,7 +132,7 @@ To allow the user to logout, implement the comments marked with _TODO_ in the `c
 
 ### (This exercise is not specific to context or redux)
 
-Now the _Users_ component renders a _User_ whenever we click on a name in the users-list. A different approach can be made here. _User_ is already its own component, the thing we could do is to give it its own route aswell, much like _Login_ and _Users_ already have.
+Now the _Users_ component renders a _User_ whenever we click on a name in the users-list. A different approach can be made here. _User_ is already its own component, the thing we could do is to give it its own route as well, much like _Login_ and _Users_ already have.
 
 The challenge here is to render the same _User_ component but with different props depending on the name we click on. We need a couple of things in order to achieve this:
 

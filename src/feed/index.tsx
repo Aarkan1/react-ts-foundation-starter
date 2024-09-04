@@ -1,7 +1,7 @@
 import "./style.css";
 
-// Interface which are exported from the global interfaces file.
-import { Item } from "../interfaces";
+// Interface which are exported from the global types file.
+import { Item } from "../types";
 
 const items: Item[] = [
   {

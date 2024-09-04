@@ -137,6 +137,8 @@ Notice that we're passing a _function_ as the value for the `fallback` prop; thi
 
 Change _ErrorBoundary_ to support the Render Props pattern, and change _CardList_ from step 2 accordingly.
 
+> Hint: Add the fallback function to the interface `Props`
+
 ### Optional
 
 Currently, if a component throws an error while rendering, _ErrorBoundary_ does not allow for retrying rendering the component.

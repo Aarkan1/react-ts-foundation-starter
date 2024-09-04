@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
-
-// This interface can be extracted to an interface.ts file and imported here instead, since this one is used in multiple places.
-interface LinkProps {
-  href: string;
-  name: string;
-}
+// Rename the imported Link to avoid conflict with the Link component from react-router-dom
+import { Link as LinkType } from "../../types";
 
 interface NavigationProps {
-  links: LinkProps[];
+  links: LinkType[];
 }
 
 const Navigation = ({ links }: NavigationProps): JSX.Element => {

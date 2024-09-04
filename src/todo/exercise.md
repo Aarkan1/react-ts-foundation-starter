@@ -40,9 +40,7 @@ Apply the styling to the _input_ element.
 
 A _TodoList_ component that has the sole responsibility to render all the todos. It accepts a prop called "todos" from the the _App_ component.
 
-Create the `Todo` interface in the global _interfaces.ts_ file.
-
-> Look at the todo object structure in `todos.json` to determine how the interface should look like.
+Import and use the `Todo` interface from the global _types.ts_ file.
 
 ```ts
 interface Props {
@@ -70,12 +68,6 @@ _Todo_ accepts the `Todo` interface as its props.
 
 > You already solved this in exercise: feed/part 1
 
-Import styled-components:
-
-```javascript
-import styled from "styled-components";
-```
-
 It returns the following markup:
 
 ```html
@@ -90,7 +82,23 @@ It returns the following markup:
 
 Notice that the markup seemingly contains other React components; these are so-called _styled components_, which render just as regular components.
 
-Create the following styled components, and put them in a separate file called _styledComponents.ts_ that should live in the todo-folder. Don't forget to export them as _const_ so you can import them into the _todo.ts_ file:
+> Installing the VS Code extension [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) helps with syntax highlighting and intellisense.
+
+Create a separate styled-component file called _styledComponents.ts_ that should live in the todo-folder. Don't forget to export the components as _const_ so you can import them into the _todo.ts_ file.
+
+Example of a styled-component:
+
+```javascript
+import styled from "styled-components";
+
+const BlueDiv = styled.div`
+  background: "blue";
+`;
+```
+
+> Styled components utilizes [tagged template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
+
+Create the following styled components:
 
 - _Container_: a `div` styled with:
 
@@ -109,6 +117,17 @@ Create the following styled components, and put them in a separate file called _
   appearance: none;
   ```
 
+- _Button_: a `button` styled with:
+
+  ```css
+  font-size: 22px;
+  color: #cc9a9a;
+
+  &:hover {
+    color: #af5b5e;
+  }
+  ```
+
 - _Label_: a `label` styled with:
 
   ```css
@@ -117,8 +136,6 @@ Create the following styled components, and put them in a separate file called _
   padding: 15px 15px 15px 60px;
   user-select: none;
   ```
-
-  > Installing the VS Code extension [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) helps with syntax highlighting and intellisense.
 
   In addition, add these CSS properties below to the label styled component. Their values should adapt based on the _completed_ prop passed to _Todo_. In order for them to properly work with TS you also need an interface that defines the props the label accepts, put it in the _styledComponents.ts_ file:
 
@@ -141,17 +158,6 @@ Create the following styled components, and put them in a separate file called _
   ```
 
   > See [Adapting based on props](https://styled-components.com/docs/basics#adapting-based-on-props) in the styled-components documentation.
-
-- _Button_: a `button` styled with:
-
-  ```css
-  font-size: 22px;
-  color: #cc9a9a;
-
-  &:hover {
-    color: #af5b5e;
-  }
-  ```
 
 Render the list of todos which has been sent down from the _App_ component to the _TodoList_, which in turn renders each individual _Todo_.
 
@@ -187,20 +193,18 @@ const [value, setValue] = useState<number>(0);
 
   > Note: You'll now render the list of todos managed by _useState_ instead of the previous _initialTodos_!
 
-- Update `userId` in `Todo` interface to be optional.
-
 - Create a callback function _createTodo_ in the _App_ component:
 
   ```typescript
   const createTodo = (title: string) => {
-    // update the state (= list of todos) by adding a new todo object - with the passed title - first in the list:
+    // update the state (the list of todos) by adding a new todo object - with the passed title - first in the list:
     const newTodo: Todo = {
       id: Date.now(),
       completed: false,
       title,
     };
 
-    // Important! You must update the state (= list of todos) as a completely NEW list of todos, containing the new todo object as the first element followed by all the elements of the current todos list.
+    // Important! You must update the state (the list of todos) as a completely NEW list of todos, containing the new todo object as the first element followed by all the elements of the current todos list.
   };
   ```
 
@@ -208,7 +212,11 @@ const [value, setValue] = useState<number>(0);
 
   Pass the _createTodo_ callback function as a prop to _TodoForm_.
 
-  > See [this link](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/basic_type_example) for how to type functions as props.
+  ```typescript
+  interface Props {
+    createTodo: (title: string) => void;
+  }
+  ```
 
   Invoke the callback function upon form submission; verify that a new todo is added (first) to the list.
 
@@ -272,12 +280,14 @@ const fetchTodos = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/todos");
   const todos: Todo[] = await response.json();
 
-  setTodos(todos.map(({ userId, ...todo }) => todo));
-  // Notice that todos.map extracts a todo without the userId
+  setTodos(todos);
 };
 
 fetchTodos();
 ```
+
+> Question: Do you know how to extract a todo without the userId?
+> It can be done by using the [rest syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#rest_property) (using the spread operator)
 
 **Important**: Ensure that the todos are only fetched once!
 
@@ -315,6 +325,7 @@ A better way to differentiate whether or not data has been fetched, as well as t
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/todos");
     const todos: Todo[] = await response.json();
+
     setTodos(todos);
   } catch (error) {}
   ```
@@ -326,6 +337,8 @@ A better way to differentiate whether or not data has been fetched, as well as t
 - If the status is `loading`, return `Loading todos...` as the render output.
 
 - If the status is `failure`, return `An error occurred while loading todos!` as the render output.
+
+- If the status is `success`, return the list of todos.
 
 - Add a "Refetch" button to allow the user to refetch / refresh the list of todos.
 

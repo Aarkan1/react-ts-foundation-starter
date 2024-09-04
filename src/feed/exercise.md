@@ -33,7 +33,7 @@ Implement the components listed below.
   ```html
   <div className="card card-medium">
     <p className="card-title">{title.toUpperCase()}</p>
-    <div><img className="card-image" src="{image}" alt="" /></div>
+    <div><img className="card-image" src={image} alt="" /></div>
   </div>
   ```
 
@@ -143,7 +143,7 @@ Change _ErrorBoundary_ to support the Render Props pattern, and change _CardList
 
 Currently, if a component throws an error while rendering, _ErrorBoundary_ does not allow for retrying rendering the component.
 
-E.g., if a _CardList_ is passed a list of items which is `null` or `undefined`, it will throw an error. Handle this error as follows:
+Handle this error as follows:
 
 1. Add a (top-level) error boundary which wraps the rendering of _CardList_ in the _App_ component.
 
@@ -161,16 +161,10 @@ E.g., if a _CardList_ is passed a list of items which is `null` or `undefined`, 
 
 3. Render a _Retry_ button (which calls the above `retry` method when clicked) if an error occurs while rendering _CardList_, to allow the user to retry rendering the feed if it fails.
 
-In `App.tsx`, add the following function:
+In _CardList_, add the following to randomly throw an error:
 
 ```typescript
-const getItems = (): Item[] | null => {
-  return Math.random() > 0.5 ? items : null;
-};
+if (Math.random() > 0.5) throw new Error();
 ```
 
-and render _CardList_ as follows:
-
-```javascript
-<CardList items={getItems()} />
-```
+Refresh the page a few times to see the error boundary in action.
